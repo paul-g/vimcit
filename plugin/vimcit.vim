@@ -1,8 +1,11 @@
 " TODO check all global variables used are defined
+function! s:getPathAtPoint(dir, extension)
+  let wordUnderCursor = expand("<cword>")
+  return a:dir . "/" . wordUnderCursor . a:extension
+endfunction
 
 function! s:openFileAtPoint(dir, extension)
-  let wordUnderCursor = expand("<cword>")
-  let path = a:dir . "/" . wordUnderCursor . a:extension
+  let path = s:getPathAtPoint(dir, extension)
   if !filereadable(path)
     throw "File not found or not readable " . path
   endif
@@ -16,7 +19,7 @@ function! VimCitOpenPdf()
 endfunction
 
 function! VimCitOpenNotes()
-  let path = s:openFileAtPoint(g:VimCitNotesPath, ".md")
+  let path = s:getPathAtPoint(g:VimCitNotesPath, ".md")
   echom "Opening notes file " . path
   execute "split " . path
 endfunction
