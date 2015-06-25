@@ -5,7 +5,7 @@ function! s:getPathAtPoint(dir, extension)
 endfunction
 
 function! s:openFileAtPoint(dir, extension)
-  let path = s:getPathAtPoint(dir, extension)
+  let path = s:getPathAtPoint(a:dir, a:extension)
   if !filereadable(path)
     throw "File not found or not readable " . path
   endif
