@@ -1,15 +1,25 @@
 " TODO check all global variables used are defined
 
-function! VimCitOpenPdf()
+function! s:openFileAtPoint(dir, extension)
   let wordUnderCursor = expand("<cword>")
-  let path = g:VimCitPdfPath . "/" . wordUnderCursor . ".pdf"
+  let path = a:dir . "/" . wordUnderCursor . a:extension
   if !filereadable(path)
-    echo "File not found or not readable " . path
-    return
+    throw "File not found or not readable " . path
   endif
+  return path
+endfunction
 
+function! VimCitOpenPdf()
+  let path = s:openFileAtPoint(g:VimCitPdfPath, ".pdf")
   echom "Opening pdf " . path
   execute "!" . g:VimCitPdfViewer . " " . path
 endfunction
 
-command! VimCitOpenAtPoint call VimCitOpenPdf()
+function! VimCitOpenNotes()
+  let path = s:openFileAtPoint(g:VimCitNotesPath, ".md")
+  echom "Opening notes file " . path
+  execute "split " . path
+endfunction
+
+command! VimCitPdf call VimCitOpenPdf()
+command! VimCitNotes call VimCitOpenNotes()
