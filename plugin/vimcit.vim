@@ -44,7 +44,7 @@ endfunction
 function! VimCitBuildTags()
   "Requires ctags to be configured for Bibitex
   "E.g. https://gist.github.com/ptrv/4576213
-  execute "! cd " . g:VimCitBibPath . " && ctags " . g:VimCitBibPath . "/bibliography.bib"
+  execute "! ctags " . g:VimCitBibPath . "/bibliography.bib"
 endfunction
 
 command! VimCitPdf call VimCitOpenPdf()
