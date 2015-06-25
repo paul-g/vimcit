@@ -1,0 +1,17 @@
+* Requirements
+  - [ ] Open search window to search bibtex file
+  - [ ] Search for key / word under point in bibtex file
+  - [ ] When entry selected can perform actions
+        - [ ] Insert citation
+        - [ ] Edit bibtex entry
+        - [ ] Open PDF
+        - [ ] Open Note files
+  - [ ] Can annotate bibtex file with custom fields
+        - [ ] Cites filed -- referenced items
+        - [ ] Read status -- read/toread/reading/someday
+  - [ ] Can generate citation graph from cites field
+  - [ ] Customisation options
+        - [ ] Specify path to pdfs
+        - [ ] Specify path to bibtex file(s)
+        - [ ] Specify path to notes
+  - [ ] Autocomplete bibtex key
