@@ -31,6 +31,25 @@ function! VimCitOpenBibEntry()
   execute "split" . path . " | " . " /" . wordUnderCursor
 endfunction
 
+function! VimCitSearchBibWordAtPoint()
+  let path = g:VimCitBibPath . "/" . "bibliography.bib"
+  let wordUnderCursor = expand("<cword>")
+  execute "split" . path . " | " . " /" . wordUnderCursor
+endfunction
+
+function! VimCitSearch()
+  execute "CtrlPTag "
+endfunction
+
+function! VimCitBuildTags()
+  "Requires ctags to be configured for Bibitex
+  "E.g. https://gist.github.com/ptrv/4576213
+  execute "! cd " . g:VimCitBibPath . " && ctags " . g:VimCitBibPath . "/bibliography.bib"
+endfunction
+
 command! VimCitPdf call VimCitOpenPdf()
 command! VimCitNotes call VimCitOpenNotes()
 command! VimCitOpenBibEntry call VimCitOpenBibEntry()
+command! VimCitSearchAtPoint call VimCitSearchBibWordAtPoint()
+command! VimCitBuildTags call VimCitBuildTags()
+command! VimCitSearch call VimCitSearch()
