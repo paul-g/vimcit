@@ -6,6 +6,7 @@
         - [ ] Edit bibtex entry
         - [ ] Open PDF
         - [ ] Open Note files
+              - [ ] Creates file if it doesn't exist
   - [ ] Can annotate bibtex file with custom fields
         - [ ] Cites filed -- referenced items
         - [ ] Read status -- read/toread/reading/someday
@@ -14,4 +15,6 @@
         - [ ] Specify path to pdfs
         - [ ] Specify path to bibtex file(s)
         - [ ] Specify path to notes
+        - [ ] Customise PDF viewer
+        - [ ] Customise notes extension
   - [ ] Autocomplete bibtex key
