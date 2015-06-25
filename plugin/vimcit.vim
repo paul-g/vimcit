@@ -24,5 +24,13 @@ function! VimCitOpenNotes()
   execute "split " . path
 endfunction
 
+function! VimCitOpenBibEntry()
+  let path = g:VimCitBibPath . "/" . "bibliography.bib"
+  echom "Opening bib file " . path
+  let wordUnderCursor = expand("<cword>")
+  execute "split" . path . " | " . " /" . wordUnderCursor
+endfunction
+
 command! VimCitPdf call VimCitOpenPdf()
 command! VimCitNotes call VimCitOpenNotes()
+command! VimCitOpenBibEntry call VimCitOpenBibEntry()
