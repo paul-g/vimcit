@@ -47,9 +47,60 @@ function! VimCitBuildTags()
   execute "! ctags " . g:VimCitBibPath . "/bibliography.bib"
 endfunction
 
+fun! VimCitParseBib()
+  let parsingEntry = 0
+  let entryId = ''
+  let entries = []
+  for line in readfile(glob(g:VimCitBibPath . "/bibliography.bib"), '')
+    " TODO set ignorecase
+    if line =~ '@'
+      if line =~? 'STRING'
+        continue
+      endif
+      let parsingEntry = 1
+      let id = substitute(line, '@.*{\|,', "", "g")
+      continue
+    endif
+    if parsingEntry && line =~? 'title' && line !~? 'booktitle'
+      let title = substitute(line, 'title\s*=\s\|,\|{\|}', "", "g")
+      echom id . " -- " . title
+      let parsingEntry = 0
+      call add(entries, {'word': id, 'menu': title})
+    endif
+  endfor
+  return entries
+endfun
+
+" Omni complete for citation keys
+fun! VimCitComplete(findstart, base)
+  if a:findstart
+    " locate the start of the word
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '\a'
+      let start -= 1
+    endwhile
+    return start
+  else
+    " find months matching with "a:base"
+    let res = []
+    let completions = VimCitParseBib()
+    for m in completions
+      if m.word =~ '^' . a:base
+        echom m.word
+        let word = m.word
+        let title = m.menu
+        call add(res, {'word': word, 'menu': title })
+      endif
+    endfor
+    return res
+  endif
+endfun
+
 command! VimCitPdf call VimCitOpenPdf()
 command! VimCitNotes call VimCitOpenNotes()
 command! VimCitOpenBibEntry call VimCitOpenBibEntry()
 command! VimCitSearchAtPoint call VimCitSearchBibWordAtPoint()
 command! VimCitBuildTags call VimCitBuildTags()
 command! VimCitSearch call VimCitSearch()
+command! VimCitParseBib call VimCitParseBib()
