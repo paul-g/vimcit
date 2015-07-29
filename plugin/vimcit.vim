@@ -62,7 +62,7 @@ fun! VimCitParseBib()
       continue
     endif
     if parsingEntry && line =~? 'title' && line !~? 'booktitle'
-      let title = substitute(line, 'title\s*=\s\|,\|{\|}', "", "g")
+      let title = substitute(line, 'title\s*=\s*\|,\|{\|}', "", "g")
       echom id . " -- " . title
       let parsingEntry = 0
       call add(entries, {'word': id, 'menu': title})
